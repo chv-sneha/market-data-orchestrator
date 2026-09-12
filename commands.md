@@ -1,7 +1,7 @@
 # Stock Pipeline Commands Cheat Sheet
 
 This file contains all the useful commands to manage, run, and inspect your Dockerized Airflow pipeline.
-You should run these commands from your terminal, while inside the `stock-data-pipeline` directory.
+You should run these commands from your terminal, while inside the `market-data-orchestrator` directory.
 
 ## 1. Start the Pipeline
 ```bash

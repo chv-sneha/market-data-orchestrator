@@ -1,4 +1,4 @@
-# Dockerized Stock Market Data Pipeline
+# Market Data Orchestrator
 
 A complete, production-ready data pipeline that automatically fetches daily stock market data from the Alpha Vantage API, processes the JSON response, and stores it in a PostgreSQL database using Apache Airflow for orchestration.
 
@@ -52,7 +52,7 @@ A complete, production-ready data pipeline that automatically fetches daily stoc
 ## Project Structure
 
 ```text
-stock-data-pipeline/
+market-data-orchestrator/
 ├── docker-compose.yml        # Infrastructure configuration
 ├── Dockerfile                # Custom Airflow image with pipeline dependencies
 ├── requirements.txt          # Python dependencies (requests, psycopg2-binary)
@@ -82,7 +82,7 @@ stock-data-pipeline/
 1. Clone the repository and navigate to the project directory:
    ```bash
    git clone <repository-url>
-   cd stock-data-pipeline
+   cd market-data-orchestrator
    ```
 
 2. Copy the example environment file to create your local configuration:
@@ -165,7 +165,7 @@ While this is a foundational pipeline, it is designed with scalability in mind:
 
 ## Commands Cheat Sheet
 
-Here are all the useful commands to manage, run, and inspect your Dockerized Airflow pipeline. Run these from the project root (`stock-data-pipeline`).
+Here are all the useful commands to manage, run, and inspect your Dockerized Airflow pipeline. Run these from the project root (`market-data-orchestrator`).
 
 ### 1. Start the Pipeline
 ```bash
