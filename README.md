@@ -70,9 +70,12 @@ stock-data-pipeline/
 
 ## Prerequisites
 
-* Docker
+* **Docker Desktop** (Must be open and running in the background)
 * Docker Compose (v2)
 * An API Key from [Alpha Vantage](https://www.alphavantage.co/support/#api-key) (Free)
+
+> [!IMPORTANT]
+> Ensure the Docker Desktop application is open and fully started (the Docker icon says "Engine running") on your machine before running any terminal commands.
 
 ## Configuration
 
