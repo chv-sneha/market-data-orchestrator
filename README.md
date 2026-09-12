@@ -122,17 +122,21 @@ This command will:
 
 ### Verifying the Data (PostgreSQL)
 
-You can connect to the PostgreSQL database to verify the ingested data.
+You can connect to the PostgreSQL database interactively to verify the ingested data or run your own queries.
 
-1. Connect to the container:
+1. Connect to the container's database shell:
    ```bash
    docker exec -it stock_pipeline_postgres psql -U stockuser -d stockdb
    ```
 
-2. Run a query:
+2. Run a query (make sure to include the semicolon `;` at the end):
    ```sql
    SELECT * FROM stock_prices ORDER BY timestamp DESC LIMIT 10;
    ```
+
+> **Pro-Tip for PostgreSQL Shell:**
+> * If the output is long, you will see a `--More--` prompt at the bottom. Press **`Spacebar`** to scroll down, or press **`q`** to exit the view.
+> * To exit the database entirely and return to your normal terminal, type **`\q`** and press Enter.
 
 ## Pipeline Workflow
 
