@@ -1,0 +1,42 @@
+# =============================================================================
+# Stock Market Data Pipeline - .gitignore
+# =============================================================================
+
+# Environment files — NEVER commit secrets
+.env
+*.env
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Distribution / packaging
+.eggs/
+dist/
+build/
+*.egg-info/
+
+# Airflow local logs and state
+logs/
+airflow.db
+airflow-webserver.pid
+
+# IDE / editor artefacts
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Docker volumes (if stored locally)
+pgdata/

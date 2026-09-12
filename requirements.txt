@@ -1,0 +1,12 @@
+# =============================================================================
+# Stock Market Data Pipeline - Python Dependencies
+# =============================================================================
+# These packages are installed into the custom Airflow Docker image.
+# Pinned to minor versions for reproducibility while allowing patch updates.
+# =============================================================================
+
+# HTTP requests — used to call the Alpha Vantage API
+requests>=2.31.0,<3.0.0
+
+# PostgreSQL adapter — used to connect and execute SQL from Python
+psycopg2-binary>=2.9.9,<3.0.0
