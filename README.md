@@ -87,7 +87,7 @@ stock-data-pipeline/
    cp .env.example .env
    ```
 
-3. Open `.env` and configure your API key:
+3. Get a free API key from [Alpha Vantage](https://www.alphavantage.co/support/#api-key), then open `.env` and configure it:
    ```env
    ALPHA_VANTAGE_API_KEY=your_actual_api_key_here
    ```
