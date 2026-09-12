@@ -55,6 +55,7 @@ A complete, production-ready data pipeline that automatically fetches daily stoc
 market-data-orchestrator/
 ├── docker-compose.yml        # Infrastructure configuration
 ├── Dockerfile                # Custom Airflow image with pipeline dependencies
+├── Makefile                  # Convenience commands (make start, make stop, etc.)
 ├── requirements.txt          # Python dependencies (requests, psycopg2-binary)
 ├── .env.example              # Example environment variables (copy to .env)
 ├── .gitignore                # Git ignore rules
@@ -99,10 +100,27 @@ market-data-orchestrator/
 
 ## Running the Project
 
-Start the complete pipeline with Docker Compose:
+This project uses a `Makefile` for all common operations. Simply run `make <command>` from the project root — no need to remember long Docker commands.
+
+### Start the Pipeline
 
 ```bash
-docker compose up --build
+make start
+```
+
+This will build the Docker images and start all containers in the background. Once ready, it will print a clickable link directly in your terminal:
+
+```
+=====================================================
+  ✅ Pipeline is up and running!
+
+  🌐 Airflow UI  →  http://localhost:8080
+     Username : admin
+     Password : admin
+
+  💡 Tip: Cmd+Click (Mac) / Ctrl+Click (Windows)
+     the link above to open it in your browser.
+=====================================================
 ```
 
 This command will:
@@ -113,7 +131,7 @@ This command will:
 
 ### Accessing Airflow
 
-1. Open your browser and navigate to: http://localhost:8080
+1. Click the `http://localhost:8080` link printed in your terminal after `make start`, or open it manually in your browser.
 2. Log in to the UI using the default credentials:
    * **Username:** `admin`
    * **Password:** `admin`
@@ -124,15 +142,17 @@ This command will:
 
 You can connect to the PostgreSQL database interactively to verify the ingested data or run your own queries.
 
-1. Connect to the container's database shell:
+1. Open an interactive database shell:
    ```bash
-   docker exec -it stock_pipeline_postgres psql -U stockuser -d stockdb
+   make db
    ```
 
-2. Run a query (make sure to include the semicolon `;` at the end):
-   ```sql
-   SELECT * FROM stock_prices ORDER BY timestamp DESC LIMIT 10;
+2. Or run a quick query directly without entering the shell:
+   ```bash
+   make db-query
    ```
+
+   This prints the 10 most recent stock price rows.
 
 > **Pro-Tip for PostgreSQL Shell:**
 > * If the output is long, you will see a `--More--` prompt at the bottom. Press **`Spacebar`** to scroll down, or press **`q`** to exit the view.
@@ -171,44 +191,18 @@ While this is a foundational pipeline, it is designed with scalability in mind:
 
 ## Commands Cheat Sheet
 
-Here are all the useful commands to manage, run, and inspect your Dockerized Airflow pipeline. Run these from the project root (`market-data-orchestrator`).
+All commands are run from the project root (`market-data-orchestrator`). Run `make help` at any time to see this list in your terminal.
 
-### 1. Start the Pipeline
-```bash
-docker compose up --build -d
-```
-*Builds the image and starts PostgreSQL, Scheduler, and Webserver in the background.*
-
-### 2. Check the Status of the Containers
-```bash
-docker ps
-```
-*Lists all running Docker containers. You should see postgres, scheduler, and webserver.*
-
-### 3. View Logs
-**Webserver (UI):**
-```bash
-docker compose logs -f airflow-webserver
-```
-**Scheduler:**
-```bash
-docker compose logs -f airflow-scheduler
-```
-
-### 4. View the Database Data (Verify it worked!)
-```bash
-docker exec -it stock_pipeline_postgres psql -U stockuser -d stockdb -c "SELECT * FROM stock_prices ORDER BY timestamp DESC LIMIT 10;"
-```
-*Connects to PostgreSQL and queries the 10 most recent rows of stock data.*
-
-### 5. Stop the Pipeline (Gracefully)
-```bash
-docker compose down
-```
-*Stops all containers safely, keeping your data intact.*
-
-### 6. Stop the Pipeline & Wipe All Data (Hard Reset)
-```bash
-docker compose down -v
-```
-*Stops all containers and deletes the database volumes. Use this only to start completely from scratch!*
+| Command | Description |
+|---|---|
+| `make start` | Build & start all containers. Prints a clickable Airflow UI link. |
+| `make stop` | Stop all containers (data is preserved). |
+| `make restart` | Stop and fully rebuild everything. |
+| `make status` | Show which containers are currently running. |
+| `make logs` | Stream live logs from all containers. |
+| `make logs-webserver` | Stream Airflow webserver logs only. |
+| `make logs-scheduler` | Stream Airflow scheduler logs only. |
+| `make db` | Open an interactive PostgreSQL shell. |
+| `make db-query` | Print the 10 most recent stock price rows. |
+| `make reset` | ⚠️ Stop all containers and **wipe all data** (hard reset). |
+| `make help` | Display all available commands in the terminal. |
