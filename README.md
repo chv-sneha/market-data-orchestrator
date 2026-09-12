@@ -100,15 +100,21 @@ market-data-orchestrator/
 
 ## Running the Project
 
-This project uses a `Makefile` for all common operations. Simply run `make <command>` from the project root — no need to remember long Docker commands.
+You can start the pipeline using either the `Makefile` (recommended) or raw Docker Compose commands directly — both work identically.
 
 ### Start the Pipeline
 
+**Option A — using Make (recommended):**
 ```bash
 make start
 ```
 
-This will build the Docker images and start all containers in the background. Once ready, it will print a clickable link directly in your terminal:
+**Option B — using Docker Compose directly:**
+```bash
+docker compose up --build -d
+```
+
+Both options will build the Docker images and start all containers in the background. With `make start`, a clickable link is also printed in the terminal once everything is ready:
 
 ```
 =====================================================
@@ -144,12 +150,20 @@ You can connect to the PostgreSQL database interactively to verify the ingested 
 
 1. Open an interactive database shell:
    ```bash
+   # Using Make
    make db
+
+   # Using Docker directly
+   docker exec -it stock_pipeline_postgres psql -U stockuser -d stockdb
    ```
 
 2. Or run a quick query directly without entering the shell:
    ```bash
+   # Using Make
    make db-query
+
+   # Using Docker directly
+   docker exec -it stock_pipeline_postgres psql -U stockuser -d stockdb -c "SELECT * FROM stock_prices ORDER BY timestamp DESC LIMIT 10;"
    ```
 
    This prints the 10 most recent stock price rows.
