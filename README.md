@@ -114,7 +114,9 @@ This command will:
 ### Accessing Airflow
 
 1. Open your browser and navigate to: http://localhost:8080
-2. Log in using the credentials defined in your `.env` file (Default: `admin` / `admin`).
+2. Log in to the UI using the default credentials:
+   * **Username:** `admin`
+   * **Password:** `admin`
 3. Locate the `daily_stock_market_pipeline` DAG.
 4. Toggle the switch to unpause the DAG. It will run automatically based on its schedule, or you can trigger it manually by clicking the "Play" button.
 
